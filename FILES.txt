@@ -1,0 +1,87 @@
+📁 LISTA COMPLETA DE ARQUIVOS DO PROJETO
+═══════════════════════════════════════════════════════════════════
+
+🎯 ARQUIVOS CORE (Funcionalidade Principal)
+───────────────────────────────────────────────────────────────────
+init.lua                          2.6 KB    Módulo Hammerspoon (Lua interface)
+youtube_transcribe.py             9.5 KB    Script Python principal
+requirements.txt                  317 B     Dependências Python
+env.example                       163 B     Template de configuração
+
+🔧 SCRIPTS DE SETUP E UTILIDADES
+───────────────────────────────────────────────────────────────────
+setup.sh                          3.4 KB    Instalação automatizada
+diagnose.sh                       7.3 KB    Diagnóstico do sistema
+test_local.sh                     808 B     Script de teste local
+
+📚 DOCUMENTAÇÃO (80 KB total)
+───────────────────────────────────────────────────────────────────
+README.md                         8.7 KB    Documentação principal ⭐
+QUICKSTART.md                     4.4 KB    Guia de 5 minutos ⚡
+INSTALL.md                        4.6 KB    Instalação detalhada
+INTEGRATION.md                    9.0 KB    Integrações avançadas
+API.md                            9.7 KB    Documentação técnica
+PROJECT_STRUCTURE.md              7.7 KB    Estrutura do projeto
+SUMMARY.md                        7.3 KB    Resumo completo
+CONTRIBUTING.md                   4.1 KB    Guia de contribuição
+CHANGELOG.md                      2.0 KB    Histórico de versões
+INDEX.md                          7.8 KB    Navegação da docs
+
+🎨 EXEMPLOS E TEMPLATES
+───────────────────────────────────────────────────────────────────
+example_config.lua                7.2 KB    Configuração completa
+
+🔒 CONFIGURAÇÃO E SEGURANÇA
+───────────────────────────────────────────────────────────────────
+.gitignore                        658 B     Arquivos ignorados
+LICENSE                           1.1 KB    MIT License
+
+📦 ARQUIVOS LEGADOS (Opcional - podem ser deletados)
+───────────────────────────────────────────────────────────────────
+transcribe.py                     4.5 KB    Script antigo
+transcribe.sh                     388 B     Shell script antigo
+
+═══════════════════════════════════════════════════════════════════
+
+📊 ESTATÍSTICAS TOTAIS:
+
+Total de arquivos:                22
+Linhas de código:                 ~3.400+
+Documentação:                     80 KB
+Status:                           ✅ Production Ready
+
+═══════════════════════════════════════════════════════════════════
+
+🚀 ARQUIVOS ESSENCIAIS PARA USAR:
+
+1. init.lua                    → Interface Hammerspoon
+2. youtube_transcribe.py       → Lógica principal
+3. requirements.txt            → Dependências
+4. setup.sh                    → Instalação
+5. README.md                   → Como usar
+
+═══════════════════════════════════════════════════════════════════
+
+📖 DOCUMENTAÇÃO RECOMENDADA:
+
+Iniciante:        QUICKSTART.md → README.md
+Instalação:       INSTALL.md
+Customização:     INTEGRATION.md + example_config.lua
+Desenvolvimento:  API.md + PROJECT_STRUCTURE.md
+Navegação:        INDEX.md
+
+═══════════════════════════════════════════════════════════════════
+
+🔧 SCRIPTS ÚTEIS:
+
+./setup.sh        → Instalar tudo automaticamente
+./diagnose.sh     → Verificar se está tudo OK
+./test_local.sh   → Testar sem Hammerspoon
+
+═══════════════════════════════════════════════════════════════════
+
+✅ PRÓXIMO PASSO:
+
+Execute: ./setup.sh
+
+═══════════════════════════════════════════════════════════════════

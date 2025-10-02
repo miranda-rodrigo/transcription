@@ -46,3 +46,13 @@ Thumbs.db
 # Arquivos temporários
 *.tmp
 *.temp
+
+# Virtual environment
+venv/
+env/
+
+# Audio files
+*.mp3
+*.wav
+*.m4a
+*.aac
