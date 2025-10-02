@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# macOS only
+if [[ "$(uname)" != "Darwin" ]]; then
+  echo "This script is intended for macOS (Darwin)." >&2
+  exit 1
+fi
+
+# Resolve repo root (this script's parent is /bin)
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+PY_SCRIPT="$REPO_ROOT/scripts/transcribe_youtube.py"
+
+# Prefer venv python if present
+PYTHON_BIN="$REPO_ROOT/.venv/bin/python3"
+if [[ ! -x "$PYTHON_BIN" ]]; then
+  PYTHON_BIN="$(command -v python3 || true)"
+fi
+
+if [[ -z "${PYTHON_BIN:-}" ]]; then
+  echo "python3 not found. Please install Python 3." >&2
+  exit 1
+fi
+
+# Read URL from clipboard
+if ! command -v pbpaste >/dev/null 2>&1; then
+  echo "pbpaste not found. Clipboard access requires macOS." >&2
+  exit 1
+fi
+URL="$(pbpaste | tr -d '\r' | tr -d '\n' | sed -e 's/^ *//' -e 's/ *$//')"
+if [[ -z "$URL" ]]; then
+  echo "Clipboard is empty; please copy a YouTube URL first." >&2
+  exit 1
+fi
+
+# Execute transcription; copy to clipboard inside Python
+"$PYTHON_BIN" "$PY_SCRIPT" --url "$URL" --review auto --to-clipboard

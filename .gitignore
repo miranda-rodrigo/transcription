@@ -1,48 +1,10 @@
-# Arquivos de ambiente com segredos
+.venv/
 .env
-
-# Arquivos Python
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
-MANIFEST
-
-# Arquivos do sistema
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# IDEs
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# Logs
 *.log
-
-# Arquivos temporários
-*.tmp
-*.temp
+tmp/
+.DS_Store
+*.mp3
+*.wav
+*.m4a
+*.webm
