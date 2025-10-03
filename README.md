@@ -2,6 +2,23 @@
 
 - **Objetivo**: Ao executar um único comando ou hotkey no Hammerspoon, ler um URL do YouTube da área de transferência, baixar o áudio (yt-dlp + ffmpeg), dividir em chunks se necessário, transcrever em paralelo com `faster-whisper`, revisar com OpenAI (opcional) e copiar o transcript final de volta para a área de transferência. Sem salvar arquivos finais.
 
+### 🆕 Shortcut Universal de Transcrição
+
+Agora inclui um **shortcut genérico** que funciona com **arquivos locais, URLs e clipboard** (não requer Hammerspoon):
+
+```bash
+# Transcrever qualquer arquivo
+bin/transcribe-shortcut video.mp4
+
+# Transcrever URL
+bin/transcribe-shortcut "https://youtu.be/..."
+
+# Workflow clipboard
+make transcribe-clipboard
+```
+
+📖 **Documentação completa**: [SHORTCUT_USAGE.md](./SHORTCUT_USAGE.md)
+
 ### Dependências
 - **macOS** com clipboard (`pbcopy/pbpaste`)
 - **Homebrew**: `brew install ffmpeg yt-dlp`
