@@ -1,0 +1,26 @@
+# Dependências para o Video Transcription Processor
+# Script: video_transcription_processor.py
+
+# Dependências principais
+faster-whisper>=1.0.0
+torch>=2.0.0
+torchaudio>=2.0.0
+
+# Processamento de áudio/vídeo
+pydub>=0.25.1
+ffmpeg-python>=0.2.0
+
+# IA e APIs
+openai>=1.30.0
+
+# Utilitários
+python-dotenv>=1.0.0
+numpy>=1.21.0
+
+# Sistema (opcional, para informações do sistema)
+psutil>=5.9.0
+
+# Nota: É necessário ter FFmpeg instalado no sistema
+# Ubuntu/Debian: sudo apt install ffmpeg
+# macOS: brew install ffmpeg  
+# Windows: Baixar do site oficial do FFmpeg
