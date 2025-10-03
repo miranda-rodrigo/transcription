@@ -43,17 +43,17 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-class VideoTranscriptionProcessor:
-    """Processador principal para transcrição de video longo."""
+class AudioTranscriptionProcessor:
+    """Processador principal para transcrição de áudio longo."""
     
     def __init__(
         self,
-        input_video: str = "Recording.mp4",
+        input_file: str = "/Users/rodrigomiranda/useful-repos/audio_transcription/long-audio/Recording.m4a",
         output_dir: str = "transcription_output",
         chunk_duration_minutes: int = 5,
         whisper_model_size: str = "large-v2"
     ):
-        self.input_video = Path(input_video)
+        self.input_file = Path(input_file)
         self.output_dir = Path(output_dir)
         self.chunk_duration = chunk_duration_minutes * 60  # Converter para segundos
         self.whisper_model_size = whisper_model_size
@@ -74,27 +74,27 @@ class VideoTranscriptionProcessor:
         if os.getenv("OPENAI_API_KEY"):
             self.openai_client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
         
-        logger.info(f"Processador inicializado para: {self.input_video}")
+        logger.info(f"Processador inicializado para: {self.input_file}")
     
     def extract_and_enhance_audio(self) -> Path:
         """
-        Extrai áudio do vídeo e melhora a qualidade.
+        Processa e melhora a qualidade do arquivo de áudio M4A.
         
         Returns:
             Path para o arquivo de áudio processado
         """
-        logger.info("Iniciando extração e melhoria do áudio...")
+        logger.info("Iniciando processamento e melhoria do áudio...")
         
-        # Verificar se o arquivo de vídeo existe
-        if not self.input_video.exists():
-            raise FileNotFoundError(f"Arquivo não encontrado: {self.input_video}")
+        # Verificar se o arquivo de áudio existe
+        if not self.input_file.exists():
+            raise FileNotFoundError(f"Arquivo não encontrado: {self.input_file}")
         
         enhanced_audio_path = self.output_dir / "enhanced_audio.wav"
         
         try:
-            # Usar FFmpeg para extração inicial com filtros de melhoria
+            # Usar FFmpeg para conversão e melhoria do M4A
             ffmpeg_command = [
-                "ffmpeg", "-i", str(self.input_video),
+                "ffmpeg", "-i", str(self.input_file),
                 "-af", (
                     "highpass=f=80,"           # Remove frequências baixas (ruído)
                     "lowpass=f=8000,"         # Remove frequências muito altas
@@ -391,19 +391,19 @@ Texto a ser refinado:
             logger.info("Retornando texto original sem refinamento")
             return raw_text
     
-    def process_video(self) -> dict:
+    def process_audio(self) -> dict:
         """
-        Executa todo o pipeline de processamento do vídeo.
+        Executa todo o pipeline de processamento do áudio.
         
         Returns:
             Dicionário com informações do processamento
         """
         start_time = time.time()
-        logger.info("=== INICIANDO PROCESSAMENTO DO VÍDEO ===")
+        logger.info("=== INICIANDO PROCESSAMENTO DO ÁUDIO ===")
         
         try:
-            # 1. Extrair e melhorar áudio
-            logger.info("Etapa 1/5: Extração e melhoria do áudio")
+            # 1. Processar e melhorar áudio
+            logger.info("Etapa 1/5: Processamento e melhoria do áudio")
             enhanced_audio = self.extract_and_enhance_audio()
             
             # 2. Dividir em chunks
@@ -427,7 +427,7 @@ Texto a ser refinado:
             
             result = {
                 "success": True,
-                "input_video": str(self.input_video),
+                "input_file": str(self.input_file),
                 "output_directory": str(self.output_dir),
                 "total_chunks": len(chunk_paths),
                 "raw_transcription_file": str(self.output_dir / "transcricao-bruta.txt"),
@@ -454,24 +454,25 @@ Texto a ser refinado:
 
 def main():
     """Função principal do script."""
-    print("🎥 PROCESSADOR DE TRANSCRIÇÃO DE VÍDEO 🎥")
+    print("🎵 PROCESSADOR DE TRANSCRIÇÃO DE ÁUDIO 🎵")
     print("=" * 50)
     
-    # Verificar se o arquivo Recording.mp4 existe
-    if not Path("Recording.mp4").exists():
-        print("❌ Erro: Arquivo 'Recording.mp4' não encontrado no diretório atual")
+    # Verificar se o arquivo Recording.m4a existe
+    audio_file = "/Users/rodrigomiranda/useful-repos/audio_transcription/long-audio/Recording.m4a"
+    if not Path(audio_file).exists():
+        print(f"❌ Erro: Arquivo não encontrado: {audio_file}")
         print("Por favor, certifique-se de que o arquivo está presente antes de executar o script.")
         sys.exit(1)
     
     # Criar processador
-    processor = VideoTranscriptionProcessor(
-        input_video="Recording.mp4",
+    processor = AudioTranscriptionProcessor(
+        input_file=audio_file,
         chunk_duration_minutes=5,  # Chunks de 5 minutos
         whisper_model_size="large-v2"  # Melhor qualidade
     )
     
     # Executar processamento
-    result = processor.process_video()
+    result = processor.process_audio()
     
     # Mostrar resultados
     print("\n" + "=" * 50)

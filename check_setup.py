@@ -52,12 +52,12 @@ def check_dependencies():
 
 def check_input_file():
     """Verifica se o arquivo de entrada existe."""
-    if Path("Recording.mp4").exists():
-        print("✅ Recording.mp4 encontrado")
+    audio_file = "/Users/rodrigomiranda/useful-repos/audio_transcription/long-audio/Recording.m4a"
+    if Path(audio_file).exists():
+        print(f"✅ Recording.m4a encontrado")
         return True
     else:
-        print("❌ Recording.mp4 não encontrado no diretório atual")
-        print("   Coloque seu arquivo de vídeo como 'Recording.mp4'")
+        print(f"❌ Recording.m4a não encontrado em: {audio_file}")
         return False
 
 def check_openai_config():
@@ -76,16 +76,17 @@ def check_openai_config():
         return False
 
 def run_quick_test():
-    """Executa um teste rápido de 30 segundos."""
-    print("\n🧪 EXECUTANDO TESTE RÁPIDO (30 segundos do vídeo)")
-    print("=" * 50)
+    """Executa um teste rápido."""
+    print("\n🧪 EXECUTANDO TESTE RÁPIDO")
+    print("=" * 40)
     
     try:
-        from video_transcription_processor import VideoTranscriptionProcessor
+        from video_transcription_processor import AudioTranscriptionProcessor
         
         # Criar processador para teste
-        processor = VideoTranscriptionProcessor(
-            input_video="Recording.mp4",
+        audio_file = "/Users/rodrigomiranda/useful-repos/audio_transcription/long-audio/Recording.m4a"
+        processor = AudioTranscriptionProcessor(
+            input_file=audio_file,
             output_dir="test_output",
             chunk_duration_minutes=1,  # Chunks pequenos para teste
             whisper_model_size="base"  # Modelo menor para teste rápido
@@ -117,8 +118,10 @@ def run_quick_test():
 
 def main():
     """Função principal do script de verificação."""
-    print("🔍 VERIFICADOR DE CONFIGURAÇÃO - TRANSCRIÇÃO DE VÍDEO")
+    print("🔍 VERIFICADOR DE CONFIGURAÇÃO - TRANSCRIÇÃO DE ÁUDIO")
     print("=" * 60)
+    print("Arquivo alvo: Recording.m4a")
+    print("")
     
     checks = [
         ("FFmpeg", check_ffmpeg),
