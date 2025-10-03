@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Generic transcription shortcut for macOS/Linux
+# Works with local files, URLs, or clipboard content
+
+# Ensure Homebrew binaries are available in PATH (Shortcuts has a minimal PATH)
+if [[ -d "/opt/homebrew/bin" ]]; then
+  export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+fi
+if [[ -d "/usr/local/bin" ]]; then
+  export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+fi
+
+# Help pydub locate ffmpeg explicitly when available
+if command -v ffmpeg >/dev/null 2>&1; then
+  export FFMPEG_BINARY="$(command -v ffmpeg)"
+fi
+
+# Resolve repo root
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+PY_SCRIPT="$REPO_ROOT/scripts/transcribe_generic.py"
+
+# Prefer venv python if present
+PYTHON_BIN="$REPO_ROOT/.venv/bin/python3"
+if [[ ! -x "$PYTHON_BIN" ]]; then
+  PYTHON_BIN="$(command -v python3 || true)"
+fi
+
+if [[ -z "${PYTHON_BIN:-}" ]]; then
+  echo "python3 not found. Please install Python 3." >&2
+  exit 1
+fi
+
+# Check if Python script exists
+if [[ ! -f "$PY_SCRIPT" ]]; then
+  echo "Transcription script not found at: $PY_SCRIPT" >&2
+  exit 1
+fi
+
+# Show help if no arguments or --help
+if [[ $# -eq 0 ]] || [[ "${1:-}" == "--help" ]] || [[ "${1:-}" == "-h" ]]; then
+  echo "Usage: $(basename "$0") [options] [file_or_url]"
+  echo ""
+  echo "Transcribe audio/video files or URLs to text"
+  echo ""
+  echo "Options:"
+  echo "  --from-clipboard    Read input from clipboard (macOS only)"
+  echo "  --to-clipboard      Copy result to clipboard (macOS only)"
+  echo "  --review            Review transcript with AI (requires OPENAI_API_KEY)"
+  echo "  --no-review         Skip AI review"
+  echo "  --language CODE     Force language (e.g., pt, en, es)"
+  echo "  --model SIZE        Whisper model size (tiny, base, small, medium, large)"
+  echo "  --verbose           Show detailed output"
+  echo ""
+  echo "Examples:"
+  echo "  $(basename "$0") video.mp4                    # Transcribe local file"
+  echo "  $(basename "$0") https://youtu.be/...         # Transcribe YouTube video"
+  echo "  $(basename "$0") --from-clipboard --to-clipboard    # Clipboard workflow"
+  echo "  $(basename "$0") --language en audio.wav     # Force English"
+  echo ""
+  exit 0
+fi
+
+# Execute transcription
+"$PYTHON_BIN" "$PY_SCRIPT" "$@"
+

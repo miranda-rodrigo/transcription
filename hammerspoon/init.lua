@@ -10,3 +10,4 @@ youtube_transcribe.bindHotkey({'cmd','alt'}, 't')
 
 
 
+
