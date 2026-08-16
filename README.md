@@ -38,13 +38,12 @@ O script Python cuida de baixar, transcrever, revisar (se possível) e copiar o 
 - `bin/transcribe-youtube-clipboard`: wrapper CLI macOS que lê o URL da área de transferência e chama o Python.
 - `Makefile`: `setup` e `run`.
 
-<<<<<<< Current (Your changes)
+### Segurança
 - O arquivo `.env` está incluído no `.gitignore` para proteger suas chaves de API
 - Nunca commite chaves de API diretamente no código
 - Use sempre o arquivo `.env` para variáveis sensíveis
-=======
+
 ### Observações
 - Autodetecção de idioma pelo Whisper; revisão preserva idioma.
 - Erros comuns (faltam deps, URL inválido) retornam mensagens claras.
 - Nada é salvo além de temporários; transcript final fica no clipboard e também é impresso no stdout como fallback.
->>>>>>> Incoming (Background Agent changes)

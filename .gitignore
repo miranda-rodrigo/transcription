@@ -2,16 +2,15 @@
 .env
 __pycache__/
 *.log
-<<<<<<< Current (Your changes)
 
 # Arquivos temporários
 *.tmp
 *.temp
-=======
 tmp/
 .DS_Store
+
+# Arquivos de áudio
 *.mp3
 *.wav
 *.m4a
 *.webm
->>>>>>> Incoming (Background Agent changes)
